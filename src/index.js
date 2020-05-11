@@ -1,13 +1,24 @@
-const express = require("express");
+// const express = require("express");
+// const React = require("react")
+// const renderToString = require("react-dom/server").renderToString
+// const Home = require("./client/components/Home").default
+import "babel-polyfill"
+import express from "express"
+import renderer from "./helpers/renderer"
+import {matchRoutes} from "react-router-config"
+import Routers from "./client/Routes"
+import createStore from "./helpers/createStore"
+
 const app = express();
-const React = require("react")
-const renderToString = require("react-dom/server").renderToString
-const Home = require("./client/components/Home").default
-
-app.get("/",(req,res)=>{
-    const content = renderToString(<Home />)
-
-    res.send(content);
+app.use(express.static("public"))
+app.get("*",(req,res)=>{
+    const store = createStore();
+    const promises = matchRoutes(Routers,req.path).map(({route})=>{
+      return  route.loadData ? route.loadData(store):null
+    })
+    Promise.all(promises).then(()=>{
+    res.send(renderer(req,store));
+    })
 })
 
 app.listen(3000,()=>{
