@@ -1,8 +1,9 @@
 import  React  from "react";
 // import {Route} from "react-router-dom"
 
-import Home from "./components/Home"
-import UsersList,{loadData} from "./components/UsersList"
+import HomePage from "./pages/HomePage"
+import UsersListPage from "./pages/UsersListPage"
+
 // export default () =>{
 //     return(
 //         <div>   
@@ -16,11 +17,13 @@ import UsersList,{loadData} from "./components/UsersList"
 export default [
     {
         path:"/",
-        component:Home,
+        // component:HomePage.Home,
+        ...HomePage,
         exact:true
     },{
-        loadData,
+        
         path:"/users",
-        component:UsersList
+        // component:UsersListPage
+        ...UsersListPage
     }
 ]
