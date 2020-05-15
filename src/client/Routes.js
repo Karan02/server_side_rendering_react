@@ -1,6 +1,6 @@
 import  React  from "react";
 // import {Route} from "react-router-dom"
-
+import App from "./App"
 import HomePage from "./pages/HomePage"
 import UsersListPage from "./pages/UsersListPage"
 
@@ -16,14 +16,18 @@ import UsersListPage from "./pages/UsersListPage"
 
 export default [
     {
-        path:"/",
-        // component:HomePage.Home,
-        ...HomePage,
-        exact:true
-    },{
-        
-        path:"/users",
-        // component:UsersListPage
-        ...UsersListPage
+        ...App,
+        routes:[{
+            path:"/",
+            // component:HomePage.Home,
+            ...HomePage,
+            exact:true
+        },{
+            
+            path:"/users",
+            // component:UsersListPage
+            ...UsersListPage
+        }]
     }
 ]
+
