@@ -3,7 +3,8 @@ import  React  from "react";
 import App from "./App"
 import HomePage from "./pages/HomePage"
 import UsersListPage from "./pages/UsersListPage"
-
+import NotFoundPage from "./pages/NotFoundPage"
+import AdminListPage from "./pages/AdminsListPage"
 // export default () =>{
 //     return(
 //         <div>   
@@ -27,6 +28,11 @@ export default [
             path:"/users",
             // component:UsersListPage
             ...UsersListPage
+        },{
+            path:"/admins",
+            ...AdminListPage
+        },{
+            ...NotFoundPage
         }]
     }
 ]

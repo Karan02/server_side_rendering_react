@@ -10,7 +10,6 @@ class UsersList extends Component {
         return  this.props.users.map(user=>{
                 return<li key={user.id}>{user.name}</li>
             })
-    
     }
     render(){
         return(
@@ -27,7 +26,7 @@ function mapState(state){
     }
 }
 
- function loadData(store) {
+function loadData(store) {
     return   store.dispatch(fetchUsers());
 }
 
