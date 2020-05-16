@@ -32,6 +32,11 @@ app.get("*",(req,res)=>{
     Promise.all(promises).then(()=>{
     const context = {}
     const content = renderer(req,store,context)
+
+    // this redirect is for ssr, we use static router on ss so if we go to auth page we redirect it to home page while not logged in
+    if(context.url){
+      return res.redirect(301,context.url)
+    }
     if(context.notFound){
       res.status(404)
     }
