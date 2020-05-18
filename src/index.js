@@ -9,6 +9,7 @@ import {matchRoutes} from "react-router-config"
 import Routers from "./client/Routes"
 import createStore from "./helpers/createStore"
 import proxy from "express-http-proxy" 
+
 const app = express();
 
 app.use("/api",proxy("http://react-ssr-api.herokuapp.com",{
@@ -17,13 +18,17 @@ app.use("/api",proxy("http://react-ssr-api.herokuapp.com",{
     return opts
   }
 }))
+
 app.use(express.static("public"))
+
 app.get("*",(req,res)=>{
     const store = createStore(req);
+    // load all component on mount data
     const promises = matchRoutes(Routers,req.path).map(({route})=>{
       return  route.loadData ? route.loadData(store):null
     }).map(promise => {
       if(promise){
+      //this extra promise map is due to if 1 promise rejected we need to still solve it and render it
         return new Promise((resolve,reject)=>{
           promise.then(resolve).catch(resolve)
         })

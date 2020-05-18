@@ -2,7 +2,7 @@ import React from "react"
 import { Redirect } from "react-router-dom"
 
 import {connect} from "react-redux"
-
+//Higher order component
 export default (ChildComponent) =>{
     class RequireAuth extends React.Component{
         render(){
